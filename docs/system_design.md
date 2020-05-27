@@ -38,8 +38,7 @@ The two networks compete in performance when the output of both is fed back to e
 |                        | count of previous articles approved         |
 |                        | count of previous articles declined         |
 |                        | count of previous articles in consideration |
-| Structural - general   |                                             |
-|                        | word count                                  |
+| Structural - general   | word count                                  |
 |                        | line count                                  |
 |                        | paragraph count                             |
 |                        | examples count                              |
@@ -53,8 +52,7 @@ The two networks compete in performance when the output of both is fed back to e
 |                        | linguistic usage (Academic ~ Layman)        |
 |                        | grammar mistakes                            |
 |                        | visualisation histogram (visual distribut)  |
-| Structural - article   |                                             |
-|                        | title length                                |
+| Structural - article   | title length                                |
 |                        | title linguistic usage                      |
 |                        | title grammar mistakes                      |
 |                        | overview / abstract (all struct features)   |
@@ -63,13 +61,11 @@ The two networks compete in performance when the output of both is fed back to e
 |                        | topic-n (all struct features)               |
 |                        | discussion (all struct features)            |
 |                        | future work (all struct features)           |
-| Contextual - general   |                                             |
-|                        | most meaningful words                       |
+| Contextual - general   | most meaningful words                       |
 |                        | most common words                           |
 |                        | word type analysis (noun, adjectives ...)   |
 |                        | ...                                         |
-| Contextual - article   |                                             |
-|                        | Same as before                              |
+| Contextual - article   | Same as before                              |
 |                        | ...                                         |
 
 #### Data scraping and pre-processing
