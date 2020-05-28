@@ -145,7 +145,7 @@ We need to train the generator for a benchmark test before we plug it into an ad
 5. write all the bla bal - 8/9
     a. history
     b. what will be next
-    c. ...
+    c. working with jupiter
 ### Phase 2
 ### Phase 3
 ### Phase 4
