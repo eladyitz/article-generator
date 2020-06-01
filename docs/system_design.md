@@ -126,4 +126,26 @@ We need to train the generator for a benchmark test before we plug it into an ad
 4. What functions should we used to convert nominal data to numeric
 
 ## Tasks
-TBD
+### Writing the research suggestion, Mini POC
+#### scope
+- 1 Data source
+- 1 Field (CS)
+- 1000 / 10,000 Examples
+- Discriminator only
+
+#### Tasks
+1. write a scrapper for the data - 1/6
+    a. python class for srapping
+2. Choose clustering algo - 4/6
+    a. choose the most fitting algo for this task (fast.ai)
+3. train system - 1/6
+    a. choose training platform (google colab) 
+4. show statiscs - 3/6
+    a. choose what statistics do we want
+5. write all the bla bal - 8/9
+    a. history
+    b. what will be next
+    c. working with jupiter
+### Phase 2
+### Phase 3
+### Phase 4
