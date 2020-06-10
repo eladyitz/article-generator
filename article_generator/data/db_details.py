@@ -5,6 +5,13 @@ from datetime import datetime, date
 class DbName(enum.Enum):
     arxiv = 1
 
+class DataActions(enum.Enum):
+    metadata_only = 1
+    download_files_only = 2
+    metadata_and_files_content = 3
+    test_parser = 4
+
+
 # query optional para
 # prefix	explanation
 # ti	Title
@@ -39,7 +46,7 @@ class ArxivDbQuery:
 
 def get_components_list(db_name, component):
     if db_name == DbName.arxiv and component == "cs":
-        return [#"cs.AI",
+        return [#"cs.AI"]#,
                 "cs.AR"]
                 # "cs.CC",
                 # "cs.CE",
