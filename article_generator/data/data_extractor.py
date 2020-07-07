@@ -5,13 +5,14 @@ from urllib.request import urlretrieve
 import arxiv
 import concurrent.futures
 import os
+import re
 from datetime import datetime
 from time import mktime
 from article_generator.data.db_details import DbName, DataActions, ArxivDbQuery
 from article_generator.data.data_parser import consolidate_papers
 
 
-def get_data_from_db(db_name, queries, data_action, delete_files=True):
+def get_data_from_db(db_name, queries, data_action, folder, delete_files=True):
     if not issubclass(db_name.__class__, DbName) and issubclass(data_action.__class__, DataActions):
         raise Exception("DB name {} and Data action {} must be allowed".format(db_name), data_action)
 
@@ -23,10 +24,10 @@ def get_data_from_db(db_name, queries, data_action, delete_files=True):
         return _get_meta_data(queries)
     elif data_action == DataActions.download_files_only:
         papers_metadata = _get_meta_data(queries)
-        return _download_papers(papers_metadata)
+        return _download_papers(papers_metadata, folder)
     elif data_action == DataActions.metadata_and_files_content:
         papers_metadata = _get_meta_data(queries)
-        papers_downloaded_folder = _download_papers(papers_metadata)
+        papers_downloaded_folder = _download_papers(papers_metadata, folder)
         papers_metadata = _add_text_to_metadata(papers_metadata)
         if delete_files:
             shutil.rmtree(papers_downloaded_folder)
@@ -35,6 +36,7 @@ def get_data_from_db(db_name, queries, data_action, delete_files=True):
         papers_metadata = _get_meta_data(queries)
         papers_metadata = _add_text_to_metadata(papers_metadata)
         return papers_metadata
+
 
 def _get_meta_data(queries):
     queries_results = set()
@@ -56,6 +58,8 @@ def _get_meta_data(queries):
 # TODO: Change to https://github.com/Mahdisadjadi/arxivscraper
 # Using http://export.arxiv.org/oai2
 def _query(query):
+    print("######################### Querying DB #################################")
+    print()
     print("Querying DB with {}".format(query))
     query_result = arxiv.query(
         query=query.query,
@@ -72,13 +76,16 @@ def _query(query):
         lambda result: query.from_date <= datetime.fromtimestamp(mktime(result['published_parsed'])) <= query.to_date,
         query_result))
     print("Query Successfully retrieved and filtered!")
-
+    print()
     return query_result
 
 
-def _download_papers(papers_metadata, path="./papers"):
+def _download_papers(papers_metadata, path):
     _clean_workspace(path)
 
+    print("####################### Download Articles ###################################")
+    print()
+    papers_counter = 0
     with concurrent.futures.ThreadPoolExecutor() as paper_downloader:
         future_to_paper = {
             paper_downloader.submit(_download_paper, paper, path): paper for paper in papers_metadata
@@ -87,14 +94,18 @@ def _download_papers(papers_metadata, path="./papers"):
         for future_paper_result in concurrent.futures.as_completed(future_to_paper):
             paper_metadata = future_to_paper[future_paper_result]
             try:
-                paper_full_path = future_paper_result.result()
-                papers_metadata.remove(paper_metadata)
-                paper_metadata['paper_full_path'] = paper_full_path
+                download_details = future_paper_result.result()
+                paper_metadata['paper_prefix_path'] = path
+                paper_metadata['paper_file_name'] = download_details["file_name"]
+                paper_metadata['paper_full_path'] = download_details["file_path"]
                 papers_metadata.add(paper_metadata)
+                papers_counter += 1
             except Exception as exc:
-                print('paper {} download returned exception {} after many attempts'.format(paper_metadata["id"], exc))
-                papers_metadata.remove(paper_metadata)
+                print("Cant download {} because {}".format(download_details["url"], exc))
+                paper_metadata['for_deletion'] = True
 
+        print("Papers downloaded {}".format(papers_counter))
+        print()
         return path
 
 
@@ -104,49 +115,82 @@ def _download_paper(paper, path):
     while not success and attempts <= 3:
         try:
             url = paper['pdf_url'].replace("http://arxiv.org/pdf", "https://export.arxiv.org/e-print")
-            path = "{}.tar.gz".format(os.path.join(path, paper['id'].split('/')[-1]))
-            urlretrieve(url, path)
+            file_name = "{}.tar.gz".format(paper['id'].split('/')[-1].replace(".", "_"))
+            file_path = os.path.join(path, file_name)
+            urlretrieve(url, file_path)
             success = True
-            print('paper {} downloaded'.format(url))
         except Exception as exc:
             attempts += 1
-            print('paper {} download returned exception {} after {} attempts'.format(url, exc, attempts))
 
-    return path
+    return {"url": url, "file_name": file_name, "file_path": file_path}
 
 
 def _clean_workspace(path):
-    try:
-        shutil.rmtree(path)
-        os.mkdir(path)
-    except OSError as e:
-        print("Cant delete dir {}, {}".format(path, e.strerror))
-        os.mkdir(path)
+    if os.path.exists(path):
+        try:
+            shutil.rmtree(path)
+        except OSError as e:
+            print("Cant delete dir {}, {}".format(path, e.strerror))
+    os.mkdir(path)
 
 
 def _untar_paper_zip(paper):
-    # TODO: Handle more formats and uknown format before download issue
-    print("unzipping file {}".format(paper['paper_full_path']))
+    extracted_folder = "{}_{}".format(paper['paper_full_path'], "extracted")
     try:
         my_tar = tarfile.open(paper['paper_full_path'])
-        extracted_folder = "{}_{}".format(paper['paper_full_path'], "extracted")
         os.mkdir(extracted_folder)
         my_tar.extractall(extracted_folder)
         my_tar.close()
         os.remove(paper['paper_full_path'])
-        print("file {} extracted to folder {}".format(paper['paper_full_path'], extracted_folder))
+        paper['paper_full_path'] = extracted_folder
         return True
     except Exception as exc:
-        print("file {} cant be unzipped, might not be tar.gz".format(paper['paper_full_path']))
+        if os.path.exists(paper['paper_full_path']):
+            os.remove(paper['paper_full_path'])
+        if os.path.exists(extracted_folder):
+            os.remove(extracted_folder)
         return False
 
 
+def _create_folder_for_sorting(paper):
+    if not paper["journal_reference"]:
+        folder_name = "not_peer_reviewed"
+    else:
+        folder_name = re.sub("[^0-9a-zA-Z]+", "_", paper["journal_reference"])
+
+    folder_path = os.path.join(paper["paper_prefix_path"], folder_name)
+    paper["paper_prefix_path"] = folder_path
+    paper["paper_folder_label"] = folder_name
+    if not os.path.exists(folder_path):
+        os.mkdir(folder_path)
+
+
 def _add_text_to_metadata(papers_metadata):
+    print("######################### Consolidate Papers #################################")
+    print()
+    papers_consolidated_counter = 0
+    papers_corrupted = 0
+    papers_cant_be_consolidated = 0
     for paper in papers_metadata:
         if _untar_paper_zip(paper):
-            paper_folder_name = "{}_{}".format(paper['paper_full_path'], "extracted")
-            files_in_directory = os.listdir(paper_folder_name)
-            tex_filtered_files = [file for file in files_in_directory if file.endswith(".tex")]
-            paper["paper_text"] = consolidate_papers(tex_filtered_files, paper_folder_name)
-    
+            _create_folder_for_sorting(paper)
+            consolidated_paper = consolidate_papers(paper)
+            if consolidated_paper:
+                paper["paper_text"] = consolidated_paper
+                paper['for_deletion'] = False
+                papers_consolidated_counter += 1
+            else:
+                paper['for_deletion'] = True
+                papers_cant_be_consolidated += 1
+        else:
+            paper['for_deletion'] = True
+            papers_corrupted += 1
+
+    print("Papers consolidated {}".format(papers_consolidated_counter))
+    print("Papers zip corrupted {}".format(papers_corrupted))
+    print("Papers format can't be consolidated {}".format(papers_cant_be_consolidated))
+    print()
+
+    papers_metadata = list(filter(lambda x: not x['for_deletion'], papers_metadata))
+
     return papers_metadata

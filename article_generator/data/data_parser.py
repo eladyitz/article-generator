@@ -1,71 +1,66 @@
 import os
-import re
 import shutil
+import subprocess
+import re
 
 
-def _warning(msg):
-    print("WARNING: " + msg)
-
-
-def _dump_file(output_f, include_file):
-    with open(include_file, encoding='utf8') as f:
-        for line in f:
-            output_f.write(line)
-
-
-def _consolidate_paper(tex_dir, tex_files, main='main.tex'):
-    print("consolidate folder {} with {} files, main is {}".format(tex_dir, tex_files, main))
-
-    r = re.compile(r'\\(include|input)\s+(\S+)')
-    dst = "{}.tex".format(tex_dir)
-
-    with open(dst, 'w', encoding='utf8') as output_f:
-        with open(os.path.join(tex_dir, main), encoding='utf8') as input_f:
-            for line in input_f:
-                if r.match(line):
-                    included = r.match(line).group(2) + '.tex'
-                    # note: currently we assume no recursive includes, we'd check later if it's needed adding
-                    if included in tex_files:
-                        _dump_file(output_f, os.path.join(tex_dir, included))
-                else:
-                    output_f.write(line)
-
-    print("folder {} consolidated".format(tex_dir, tex_files, main))
-    file_content = open(output_f.name, "r", encoding='utf8').read()
-    return file_content
-
-
-def _search_main_tex(tex_dir, tex_files):
+def _get_main_tex_file(tex_dir, tex_files):
     r = re.compile(r'^\s*\\documentclass')
     for tex_file in tex_files:
         filename = os.path.join(tex_dir, tex_file)
-        with open(filename, encoding='utf8') as f:
+        with open(filename, 'r', encoding='utf-8') as f:
             try:
                 for line in f:
                     if r.match(line):
                         return tex_file
-            except UnicodeDecodeError:
-                _warning("Decoding error in: " + filename)
+            except UnicodeDecodeError as exc:
+                print("Decoding error in: {}, reason: {}".format(filename, exc))
+                return None
     return None
 
 
-def consolidate_papers(tex_files, tex_dir):
-    if len(tex_files) == 1:
-        print("foldr {} has only one file {}".format(tex_dir, tex_files[0]))
-        try:
-            shutil.copyfile(os.path.join(tex_dir, tex_files[0]), "{}.tex".format(tex_dir))
-            return open(os.path.join(tex_dir, tex_files[0]), "r", encoding='utf8').read()
-        except UnicodeDecodeError:
-            _warning("Decoding error in: " + os.path.join(tex_dir, tex_files[0]))
-            return ""
+def consolidate_papers(paper):
+    tex_files = [file for file in os.listdir(paper['paper_full_path']) if file.endswith(".tex")]
+    new_paper_file_name = "{}.txt".format(paper['paper_file_name'])
+    consolidated_paper = os.path.join("..", paper['paper_folder_label'], new_paper_file_name)
 
-    elif 'main.tex' not in tex_files:
-        main = _search_main_tex(tex_dir, tex_files)
-        if main is None:
-            _warning("directory {} is without main.tex file".format(tex_dir))
-        else:
-            consolidated_paper = _consolidate_paper(tex_dir, tex_files, main)
+    if "main.tex" in tex_files:
+        main_tex = "main.tex"
+    elif len(tex_files) == 1:
+        main_tex = tex_files[0]
     else:
-        consolidated_paper = _consolidate_paper(tex_dir, tex_files)
+        main_tex = _get_main_tex_file(paper['paper_full_path'], tex_files)
+        if not main_tex:
+            print("there is no main.tex and there is more than 1 file in folder: {}".format(paper['paper_full_path']))
+            return None
 
-    return consolidated_paper
+    current_path = os.getcwd()
+    os.chdir(paper['paper_full_path'])
+    subprocess.run("detex {} > {}".format(main_tex, consolidated_paper),
+                            stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                            check=True,
+                            text=True,
+                            shell=True)
+
+    try:
+        with open(consolidated_paper, "r+", encoding='utf-8') as paper_file:
+            paper_content = paper_file.read()
+            paper_content = re.sub(r'\n\s*\n', '\n\n', paper_content)
+            paper_file.seek(0)
+            paper_file.write(paper_content)
+            paper_file.truncate()
+    except UnicodeDecodeError as exc:
+        print("Decoding error in: {}, reason: {}".format(consolidated_paper, exc))
+        os.remove(consolidated_paper)
+        paper_content = None
+
+    try:
+        os.chdir(current_path)
+        shutil.rmtree(paper['paper_full_path'])
+    except OSError as exc:
+        print("Cant delete dir {}, {}".format(paper['paper_full_path'], exc))
+
+    paper['paper_file_name'] = new_paper_file_name
+    paper['paper_full_path'] = os.path.join(paper['paper_prefix_path'], new_paper_file_name)
+
+    return paper_content

@@ -43,10 +43,14 @@ class ArxivDbQuery:
         self.prune = prune
         self.max_chunk_results = max_chunk_results
 
+    def __str__(self):
+        return str(self.__dict__)
 
+
+# TODO: Change to dynamicly changing list
 def get_components_list(db_name, component):
     if db_name == DbName.arxiv and component == "cs":
-        return [#"cs.AI"]#,
+        return ["cs.AI",
                 "cs.AR"]
                 # "cs.CC",
                 # "cs.CE",
