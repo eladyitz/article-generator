@@ -12,7 +12,7 @@ from article_generator.data.db_details import DbName, DataActions, ArxivDbQuery
 from article_generator.data.data_parser import consolidate_papers
 
 
-def get_data_from_db(db_name, queries, data_action, folder, delete_files=True):
+def get_data_from_db(db_name, queries, data_action, folder):
     if not issubclass(db_name.__class__, DbName) and issubclass(data_action.__class__, DataActions):
         raise Exception("DB name {} and Data action {} must be allowed".format(db_name), data_action)
 
@@ -27,10 +27,8 @@ def get_data_from_db(db_name, queries, data_action, folder, delete_files=True):
         return _download_papers(papers_metadata, folder)
     elif data_action == DataActions.metadata_and_files_content:
         papers_metadata = _get_meta_data(queries)
-        papers_downloaded_folder = _download_papers(papers_metadata, folder)
+        _download_papers(papers_metadata, folder)
         papers_metadata = _add_text_to_metadata(papers_metadata)
-        if delete_files:
-            shutil.rmtree(papers_downloaded_folder)
         return papers_metadata
     elif data_action == DataActions.test_parser:
         papers_metadata = _get_meta_data(queries)

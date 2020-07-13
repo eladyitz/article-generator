@@ -5,13 +5,13 @@ from article_generator.data.db_details import DbName, DataActions, get_component
 from article_generator.data.data_extractor import get_data_from_db
 
 
-papers_folder = "papers2"
+papers_folder = "papers"
 components_list = get_components_list(DbName.arxiv, "cs") # AI
 queries = set()
 for component in components_list:
     queries.add(ArxivDbQuery("cat:{}".format(component), from_date="2017-06-03", max_results=5)) # 3 years
 
-data = get_data_from_db(DbName.arxiv, queries, DataActions.metadata_and_files_content, folder=papers_folder, delete_files=False)
+data = get_data_from_db(DbName.arxiv, queries, DataActions.metadata_and_files_content, folder=papers_folder)
 
 # data can be used as data frame
 cols = tuple(list(data)[0].keys())
