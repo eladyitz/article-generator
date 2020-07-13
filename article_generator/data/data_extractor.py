@@ -6,7 +6,7 @@ import arxiv
 import concurrent.futures
 import os
 import re
-from datetime import datetime
+import datetime
 from time import mktime
 from article_generator.data.db_details import DbName, DataActions, ArxivDbQuery
 from article_generator.data.data_parser import consolidate_papers
@@ -71,7 +71,7 @@ def _query(query):
     )
 
     query_result = list(filter(
-        lambda result: query.from_date <= datetime.fromtimestamp(mktime(result['published_parsed'])) <= query.to_date,
+        lambda result: query.from_date <= datetime.datetime.fromtimestamp(mktime(result['published_parsed'])) <= query.to_date,
         query_result))
     print("Query Successfully retrieved and filtered!")
     print()

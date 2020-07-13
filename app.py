@@ -1,3 +1,4 @@
+import datetime
 import pandas as pd
 import os
 from IPython.display import display
@@ -6,10 +7,14 @@ from article_generator.data.data_extractor import get_data_from_db
 
 
 papers_folder = "papers"
+max_results = 1000
+years_ago = 3
+from_date = datetime.datetime.now() - datetime.timedelta(days=years_ago*365)
+
 components_list = get_components_list(DbName.arxiv, "cs") # AI
 queries = set()
 for component in components_list:
-    queries.add(ArxivDbQuery("cat:{}".format(component), from_date="2017-06-03", max_results=5)) # 3 years
+    queries.add(ArxivDbQuery("cat:{}".format(component), from_date=from_date, max_results=max_results)) # 3 years
 
 data = get_data_from_db(DbName.arxiv, queries, DataActions.metadata_and_files_content, folder=papers_folder)
 

@@ -1,5 +1,5 @@
 import enum
-from datetime import datetime, date
+import datetime
 
 
 class DbName(enum.Enum):
@@ -27,14 +27,14 @@ class DataActions(enum.Enum):
 
 
 class ArxivDbQuery:
-    def __init__(self, query, from_date, to_date=None, date_format="%Y-%m-%d", id_list=[], max_results=None, start=0, sort_by="submittedDate",
+    def __init__(self, query, from_date, to_date=None, id_list=[], max_results=None, start=0, sort_by="submittedDate",
                  sort_order="descending", prune=True, max_chunk_results=1000):
         self.query = query
-        self.from_date = datetime.strptime(from_date, date_format)
+        self.from_date = from_date
         if to_date is None:
             self.to_date = datetime.now()
         else:
-            self.to_date = datetime.strptime(to_date, date_format)
+            self.to_date = to_date
         self.id_list = id_list
         self.max_results = max_results
         self.start = start
