@@ -1,0 +1,576 @@
+%%% -*-BibTeX-*-
+%%% Do NOT edit. File created by BibTeX with style
+%%% ACM-Reference-Format-Journals [18-Jan-2012].
+
+\begin{thebibliography}{42}
+
+%%% ====================================================================
+%%% NOTE TO THE USER: you can override these defaults by providing
+%%% customized versions of any of these macros before the \bibliography
+%%% command.  Each of them MUST provide its own final punctuation,
+%%% except for \shownote{}, \showDOI{}, and \showURL{}.  The latter two
+%%% do not use final punctuation, in order to avoid confusing it with
+%%% the Web address.
+%%%
+%%% To suppress output of a particular field, define its macro to expand
+%%% to an empty string, or better, \unskip, like this:
+%%%
+%%% \newcommand{\showDOI}[1]{\unskip}   % LaTeX syntax
+%%%
+%%% \def \showDOI #1{\unskip}           % plain TeX syntax
+%%%
+%%% ====================================================================
+
+\ifx \showCODEN    \undefined \def \showCODEN     #1{\unskip}     \fi
+\ifx \showDOI      \undefined \def \showDOI       #1{#1}\fi
+\ifx \showISBNx    \undefined \def \showISBNx     #1{\unskip}     \fi
+\ifx \showISBNxiii \undefined \def \showISBNxiii  #1{\unskip}     \fi
+\ifx \showISSN     \undefined \def \showISSN      #1{\unskip}     \fi
+\ifx \showLCCN     \undefined \def \showLCCN      #1{\unskip}     \fi
+\ifx \shownote     \undefined \def \shownote      #1{#1}          \fi
+\ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
+\ifx \showURL      \undefined \def \showURL       {\relax}        \fi
+% The following commands are used for tagged output and should be
+% invisible to TeX
+\providecommand\bibfield[2]{#2}
+\providecommand\bibinfo[2]{#2}
+\providecommand\natexlab[1]{#1}
+\providecommand\showeprint[2][]{arXiv:#2}
+
+\bibitem[\protect\citeauthoryear{Anvik, Hiew, and Murphy}{Anvik
+  et~al\mbox{.}}{2006}]%
+        {anvik2006should}
+\bibfield{author}{\bibinfo{person}{John Anvik}, \bibinfo{person}{Lyndon Hiew},
+  {and} \bibinfo{person}{Gail~C Murphy}.} \bibinfo{year}{2006}\natexlab{}.
+\newblock \showarticletitle{Who should fix this bug?}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the 28th international conference on
+  Software engineering}}. \bibinfo{pages}{361--370}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Ardimento and Dinapoli}{Ardimento and
+  Dinapoli}{2017}]%
+        {ardimento2017knowledge}
+\bibfield{author}{\bibinfo{person}{Pasquale Ardimento} {and}
+  \bibinfo{person}{Andrea Dinapoli}.} \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{Knowledge extraction from on-line open source bug
+  tracking systems to predict bug-fixing time}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the 7th International Conference on
+  Web Intelligence, Mining and Semantics}}. \bibinfo{pages}{1--9}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Bahdanau, Cho, and Bengio}{Bahdanau
+  et~al\mbox{.}}{2014}]%
+        {bahdanau2014neural}
+\bibfield{author}{\bibinfo{person}{Dzmitry Bahdanau},
+  \bibinfo{person}{Kyunghyun Cho}, {and} \bibinfo{person}{Yoshua Bengio}.}
+  \bibinfo{year}{2014}\natexlab{}.
+\newblock \showarticletitle{Neural machine translation by jointly learning to
+  align and translate}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:1409.0473}}
+  (\bibinfo{year}{2014}).
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Bansal, Renganathan, Asudani, Midy, and
+  Janakiraman}{Bansal et~al\mbox{.}}{2020}]%
+        {bansal2019decaf}
+\bibfield{author}{\bibinfo{person}{Chetan Bansal},
+  \bibinfo{person}{Sundararajan Renganathan}, \bibinfo{person}{Ashima Asudani},
+  \bibinfo{person}{Olivier Midy}, {and} \bibinfo{person}{Mathru Janakiraman}.}
+  \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{DeCaf: Diagnosing and Triaging Performance Issues
+  in Large-Scale Cloud Services}. In \bibinfo{booktitle}{\emph{2020 IEEE/ACM
+  42nd International Conference on Software Engineering: Software Engineering
+  in Practice (ICSE-SEIP)}}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Bettenburg, Premraj, Zimmermann, and
+  Kim}{Bettenburg et~al\mbox{.}}{2008}]%
+        {bettenburg2008extracting}
+\bibfield{author}{\bibinfo{person}{Nicolas Bettenburg}, \bibinfo{person}{Rahul
+  Premraj}, \bibinfo{person}{Thomas Zimmermann}, {and} \bibinfo{person}{Sunghun
+  Kim}.} \bibinfo{year}{2008}\natexlab{}.
+\newblock \showarticletitle{Extracting structural information from bug
+  reports}. In \bibinfo{booktitle}{\emph{Proceedings of the 2008 international
+  working conference on Mining software repositories}}.
+  \bibinfo{pages}{27--30}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Bortis and Van Der~Hoek}{Bortis and Van
+  Der~Hoek}{2013}]%
+        {bortis2013porchlight}
+\bibfield{author}{\bibinfo{person}{Gerald Bortis} {and} \bibinfo{person}{Andre
+  Van Der~Hoek}.} \bibinfo{year}{2013}\natexlab{}.
+\newblock \showarticletitle{Porchlight: A tag-based approach to bug triaging}.
+  In \bibinfo{booktitle}{\emph{2013 35th International Conference on Software
+  Engineering (ICSE)}}. IEEE, \bibinfo{pages}{342--351}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Caruana}{Caruana}{1997}]%
+        {caruana1997multitask}
+\bibfield{author}{\bibinfo{person}{Rich Caruana}.}
+  \bibinfo{year}{1997}\natexlab{}.
+\newblock \showarticletitle{Multitask learning}.
+\newblock \bibinfo{journal}{\emph{Machine learning}} \bibinfo{volume}{28},
+  \bibinfo{number}{1} (\bibinfo{year}{1997}), \bibinfo{pages}{41--75}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{{Chen}, {He}, {Lin}, {Xu}, {Zhang}, {Hao},
+  {Gao}, {Xu}, {Dang}, and {Zhang}}{{Chen} et~al\mbox{.}}{2019a}]%
+        {EmpiricalIcMICSE2019}
+\bibfield{author}{\bibinfo{person}{J. {Chen}}, \bibinfo{person}{X. {He}},
+  \bibinfo{person}{Q. {Lin}}, \bibinfo{person}{Y. {Xu}}, \bibinfo{person}{H.
+  {Zhang}}, \bibinfo{person}{D. {Hao}}, \bibinfo{person}{F. {Gao}},
+  \bibinfo{person}{Z. {Xu}}, \bibinfo{person}{Y. {Dang}}, {and}
+  \bibinfo{person}{D. {Zhang}}.} \bibinfo{year}{2019}\natexlab{a}.
+\newblock \showarticletitle{An Empirical Investigation of Incident Triage for
+  Online Service Systems}. In \bibinfo{booktitle}{\emph{2019 IEEE/ACM 41st
+  International Conference on Software Engineering: Software Engineering in
+  Practice (ICSE-SEIP)}}. \bibinfo{pages}{111--120}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{{Chen}, {He}, {Lin}, {Zhang}, {Hao}, {Gao},
+  {Xu}, {Dang}, and {Zhang}}{{Chen} et~al\mbox{.}}{2019b}]%
+        {ContinuousTriageASE2019}
+\bibfield{author}{\bibinfo{person}{J. {Chen}}, \bibinfo{person}{X. {He}},
+  \bibinfo{person}{Q. {Lin}}, \bibinfo{person}{H. {Zhang}}, \bibinfo{person}{D.
+  {Hao}}, \bibinfo{person}{F. {Gao}}, \bibinfo{person}{Z. {Xu}},
+  \bibinfo{person}{Y. {Dang}}, {and} \bibinfo{person}{D. {Zhang}}.}
+  \bibinfo{year}{2019}\natexlab{b}.
+\newblock \showarticletitle{Continuous Incident Triage for Large-Scale Online
+  Service Systems}. In \bibinfo{booktitle}{\emph{2019 34th IEEE/ACM
+  International Conference on Automated Software Engineering (ASE)}}.
+  \bibinfo{pages}{364--375}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Chen, Sun, Bing, and Yang}{Chen
+  et~al\mbox{.}}{2017}]%
+        {chen2017recurrent}
+\bibfield{author}{\bibinfo{person}{Peng Chen}, \bibinfo{person}{Zhongqian Sun},
+  \bibinfo{person}{Lidong Bing}, {and} \bibinfo{person}{Wei Yang}.}
+  \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{Recurrent attention network on memory for aspect
+  sentiment analysis}. In \bibinfo{booktitle}{\emph{Proceedings of the 2017
+  conference on empirical methods in natural language processing}}.
+  \bibinfo{pages}{452--461}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Chen, Yang, Lin, Zhang, Gao, Xu, Dang, Zhang,
+  Dong, Xu, et~al\mbox{.}}{Chen et~al\mbox{.}}{2019}]%
+        {chen2019outage}
+\bibfield{author}{\bibinfo{person}{Yujun Chen}, \bibinfo{person}{Xian Yang},
+  \bibinfo{person}{Qingwei Lin}, \bibinfo{person}{Hongyu Zhang},
+  \bibinfo{person}{Feng Gao}, \bibinfo{person}{Zhangwei Xu},
+  \bibinfo{person}{Yingnong Dang}, \bibinfo{person}{Dongmei Zhang},
+  \bibinfo{person}{Hang Dong}, \bibinfo{person}{Yong Xu}, {et~al\mbox{.}}}
+  \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{Outage prediction and diagnosis for cloud service
+  systems}. In \bibinfo{booktitle}{\emph{The World Wide Web Conference}}.
+  \bibinfo{pages}{2659--2665}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Chiu and Nichols}{Chiu and Nichols}{2016}]%
+        {chiu2016named}
+\bibfield{author}{\bibinfo{person}{Jason~PC Chiu} {and} \bibinfo{person}{Eric
+  Nichols}.} \bibinfo{year}{2016}\natexlab{}.
+\newblock \showarticletitle{Named entity recognition with bidirectional
+  LSTM-CNNs}.
+\newblock \bibinfo{journal}{\emph{Transactions of the Association for
+  Computational Linguistics}}  \bibinfo{volume}{4} (\bibinfo{year}{2016}),
+  \bibinfo{pages}{357--370}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Collobert, Weston, Bottou, Karlen,
+  Kavukcuoglu, and Kuksa}{Collobert et~al\mbox{.}}{2011}]%
+        {collobert2011natural}
+\bibfield{author}{\bibinfo{person}{Ronan Collobert}, \bibinfo{person}{Jason
+  Weston}, \bibinfo{person}{L{\'e}on Bottou}, \bibinfo{person}{Michael Karlen},
+  \bibinfo{person}{Koray Kavukcuoglu}, {and} \bibinfo{person}{Pavel Kuksa}.}
+  \bibinfo{year}{2011}\natexlab{}.
+\newblock \showarticletitle{Natural language processing (almost) from scratch}.
+\newblock \bibinfo{journal}{\emph{Journal of machine learning research}}
+  \bibinfo{volume}{12}, \bibinfo{number}{Aug} (\bibinfo{year}{2011}),
+  \bibinfo{pages}{2493--2537}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Dang, Lin, and Huang}{Dang
+  et~al\mbox{.}}{2019}]%
+        {dang2019aiops}
+\bibfield{author}{\bibinfo{person}{Yingnong Dang}, \bibinfo{person}{Qingwei
+  Lin}, {and} \bibinfo{person}{Peng Huang}.} \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{AIOps: real-world challenges and research
+  innovations}. In \bibinfo{booktitle}{\emph{2019 IEEE/ACM 41st International
+  Conference on Software Engineering: Companion Proceedings (ICSE-Companion)}}.
+  IEEE, \bibinfo{pages}{4--5}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Devlin, Chang, Lee, and Toutanova}{Devlin
+  et~al\mbox{.}}{2018}]%
+        {devlin2018bert}
+\bibfield{author}{\bibinfo{person}{Jacob Devlin}, \bibinfo{person}{Ming-Wei
+  Chang}, \bibinfo{person}{Kenton Lee}, {and} \bibinfo{person}{Kristina
+  Toutanova}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{Bert: Pre-training of deep bidirectional
+  transformers for language understanding}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:1810.04805}}
+  (\bibinfo{year}{2018}).
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Florian, Ittycheriah, Jing, and Zhang}{Florian
+  et~al\mbox{.}}{2003}]%
+        {florian2003named}
+\bibfield{author}{\bibinfo{person}{Radu Florian}, \bibinfo{person}{Abe
+  Ittycheriah}, \bibinfo{person}{Hongyan Jing}, {and} \bibinfo{person}{Tong
+  Zhang}.} \bibinfo{year}{2003}\natexlab{}.
+\newblock \showarticletitle{Named entity recognition through classifier
+  combination}. In \bibinfo{booktitle}{\emph{Proceedings of the seventh
+  conference on Natural language learning at HLT-NAACL 2003-Volume 4}}.
+  Association for Computational Linguistics, \bibinfo{pages}{168--171}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Graves and Schmidhuber}{Graves and
+  Schmidhuber}{2005}]%
+        {graves2005framewise}
+\bibfield{author}{\bibinfo{person}{Alex Graves} {and}
+  \bibinfo{person}{J{\"u}rgen Schmidhuber}.} \bibinfo{year}{2005}\natexlab{}.
+\newblock \showarticletitle{Framewise phoneme classification with bidirectional
+  LSTM and other neural network architectures}.
+\newblock \bibinfo{journal}{\emph{Neural networks}} \bibinfo{volume}{18},
+  \bibinfo{number}{5-6} (\bibinfo{year}{2005}), \bibinfo{pages}{602--610}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Hochreiter and Schmidhuber}{Hochreiter and
+  Schmidhuber}{1997}]%
+        {hochreiter1997long}
+\bibfield{author}{\bibinfo{person}{Sepp Hochreiter} {and}
+  \bibinfo{person}{J{\"u}rgen Schmidhuber}.} \bibinfo{year}{1997}\natexlab{}.
+\newblock \showarticletitle{Long short-term memory}.
+\newblock \bibinfo{journal}{\emph{Neural computation}} \bibinfo{volume}{9},
+  \bibinfo{number}{8} (\bibinfo{year}{1997}), \bibinfo{pages}{1735--1780}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Huang, Xu, and Yu}{Huang
+  et~al\mbox{.}}{2015}]%
+        {huang2015bidirectional}
+\bibfield{author}{\bibinfo{person}{Zhiheng Huang}, \bibinfo{person}{Wei Xu},
+  {and} \bibinfo{person}{Kai Yu}.} \bibinfo{year}{2015}\natexlab{}.
+\newblock \showarticletitle{Bidirectional LSTM-CRF models for sequence
+  tagging}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:1508.01991}}
+  (\bibinfo{year}{2015}).
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Kumar, Bansal, Maddila, Sharma, Martelock, and
+  Bhargava}{Kumar et~al\mbox{.}}{2019}]%
+        {kumar2019building}
+\bibfield{author}{\bibinfo{person}{Rahul Kumar}, \bibinfo{person}{Chetan
+  Bansal}, \bibinfo{person}{Chandra Maddila}, \bibinfo{person}{Nitin Sharma},
+  \bibinfo{person}{Shawn Martelock}, {and} \bibinfo{person}{Ravi Bhargava}.}
+  \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{Building sankie: an AI platform for DevOps}. In
+  \bibinfo{booktitle}{\emph{2019 IEEE/ACM 1st International Workshop on Bots in
+  Software Engineering (BotSE)}}. IEEE, \bibinfo{pages}{48--53}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Lafferty, McCallum, and Pereira}{Lafferty
+  et~al\mbox{.}}{2001}]%
+        {lafferty2001conditional}
+\bibfield{author}{\bibinfo{person}{John Lafferty}, \bibinfo{person}{Andrew
+  McCallum}, {and} \bibinfo{person}{Fernando~CN Pereira}.}
+  \bibinfo{year}{2001}\natexlab{}.
+\newblock \showarticletitle{Conditional random fields: Probabilistic models for
+  segmenting and labeling sequence data}.
+\newblock  (\bibinfo{year}{2001}).
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Lample, Ballesteros, Subramanian, Kawakami,
+  and Dyer}{Lample et~al\mbox{.}}{2016}]%
+        {lample2016neural}
+\bibfield{author}{\bibinfo{person}{Guillaume Lample}, \bibinfo{person}{Miguel
+  Ballesteros}, \bibinfo{person}{Sandeep Subramanian}, \bibinfo{person}{Kazuya
+  Kawakami}, {and} \bibinfo{person}{Chris Dyer}.}
+  \bibinfo{year}{2016}\natexlab{}.
+\newblock \showarticletitle{Neural architectures for named entity recognition}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:1603.01360}}
+  (\bibinfo{year}{2016}).
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Li, Li, and Chang}{Li et~al\mbox{.}}{2016}]%
+        {li2016discourse}
+\bibfield{author}{\bibinfo{person}{Qi Li}, \bibinfo{person}{Tianshi Li}, {and}
+  \bibinfo{person}{Baobao Chang}.} \bibinfo{year}{2016}\natexlab{}.
+\newblock \showarticletitle{Discourse parsing with attention-based hierarchical
+  neural networks}. In \bibinfo{booktitle}{\emph{Proceedings of the 2016
+  Conference on Empirical Methods in Natural Language Processing}}.
+  \bibinfo{pages}{362--371}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Li, Jiang, Li, Hassan, He, Huang, Zeng, Wang,
+  and Chen}{Li et~al\mbox{.}}{2020}]%
+        {lipredicting}
+\bibfield{author}{\bibinfo{person}{Yangguang Li}, \bibinfo{person}{Zhen~Ming
+  Jiang}, \bibinfo{person}{Heng Li}, \bibinfo{person}{Ahmed~E Hassan},
+  \bibinfo{person}{Cheng He}, \bibinfo{person}{Ruirui Huang},
+  \bibinfo{person}{Zhengda Zeng}, \bibinfo{person}{Mian Wang}, {and}
+  \bibinfo{person}{Pinan Chen}.} \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{Predicting Node Failures in an Ultra-large-scale
+  Cloud Computing Platform: an AIOps Solution}.
+\newblock \bibinfo{journal}{\emph{ACM Transactions on Software Engineering and
+  Methodology (TOSEM)}} \bibinfo{volume}{29}, \bibinfo{number}{2}
+  (\bibinfo{year}{2020}), \bibinfo{pages}{1--24}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Luo, Lou, Lin, Fu, Ding, Zhang, and Wang}{Luo
+  et~al\mbox{.}}{2014}]%
+        {luo2014correlating}
+\bibfield{author}{\bibinfo{person}{Chen Luo}, \bibinfo{person}{Jian-Guang Lou},
+  \bibinfo{person}{Qingwei Lin}, \bibinfo{person}{Qiang Fu},
+  \bibinfo{person}{Rui Ding}, \bibinfo{person}{Dongmei Zhang}, {and}
+  \bibinfo{person}{Zhe Wang}.} \bibinfo{year}{2014}\natexlab{}.
+\newblock \showarticletitle{Correlating events with time series for incident
+  diagnosis}. In \bibinfo{booktitle}{\emph{Proceedings of the 20th ACM SIGKDD
+  international conference on Knowledge discovery and data mining}}.
+  \bibinfo{pages}{1583--1592}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{McCallum and Li}{McCallum and Li}{2003}]%
+        {mccallum2003early}
+\bibfield{author}{\bibinfo{person}{Andrew McCallum} {and} \bibinfo{person}{Wei
+  Li}.} \bibinfo{year}{2003}\natexlab{}.
+\newblock \showarticletitle{Early results for named entity recognition with
+  conditional random fields, feature induction and web-enhanced lexicons}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the seventh conference on Natural
+  language learning at HLT-NAACL 2003-Volume 4}}. Association for Computational
+  Linguistics, \bibinfo{pages}{188--191}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Mehta, Bhagwan, Kumar, Bansal, Maddila, Ashok,
+  Asthana, Bird, and Kumar}{Mehta et~al\mbox{.}}{2020}]%
+        {mehta2020rex}
+\bibfield{author}{\bibinfo{person}{Sonu Mehta}, \bibinfo{person}{Ranjita
+  Bhagwan}, \bibinfo{person}{Rahul Kumar}, \bibinfo{person}{Chetan Bansal},
+  \bibinfo{person}{Chandra Maddila}, \bibinfo{person}{B Ashok},
+  \bibinfo{person}{Sumit Asthana}, \bibinfo{person}{Christian Bird}, {and}
+  \bibinfo{person}{Aditya Kumar}.} \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{Rex: Preventing Bugs and Misconfiguration in Large
+  Services Using Correlated Change Analysis}. In \bibinfo{booktitle}{\emph{17th
+  $\{$USENIX$\}$ Symposium on Networked Systems Design and Implementation
+  ($\{$NSDI$\}$ 20)}}. \bibinfo{pages}{435--448}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Mikolov, Karafi{\'a}t, Burget,
+  {\v{C}}ernock{\`y}, and Khudanpur}{Mikolov et~al\mbox{.}}{2010}]%
+        {mikolov2010recurrent}
+\bibfield{author}{\bibinfo{person}{Tom{\'a}{\v{s}} Mikolov},
+  \bibinfo{person}{Martin Karafi{\'a}t}, \bibinfo{person}{Luk{\'a}{\v{s}}
+  Burget}, \bibinfo{person}{Jan {\v{C}}ernock{\`y}}, {and}
+  \bibinfo{person}{Sanjeev Khudanpur}.} \bibinfo{year}{2010}\natexlab{}.
+\newblock \showarticletitle{Recurrent neural network based language model}. In
+  \bibinfo{booktitle}{\emph{Eleventh annual conference of the international
+  speech communication association}}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Misra, Shrivastava, Gupta, and Hebert}{Misra
+  et~al\mbox{.}}{2016}]%
+        {misra2016cross}
+\bibfield{author}{\bibinfo{person}{Ishan Misra}, \bibinfo{person}{Abhinav
+  Shrivastava}, \bibinfo{person}{Abhinav Gupta}, {and} \bibinfo{person}{Martial
+  Hebert}.} \bibinfo{year}{2016}\natexlab{}.
+\newblock \showarticletitle{Cross-stitch networks for multi-task learning}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the IEEE Conference on Computer
+  Vision and Pattern Recognition}}. \bibinfo{pages}{3994--4003}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Nadeau and Sekine}{Nadeau and Sekine}{2007}]%
+        {nadeau2007survey}
+\bibfield{author}{\bibinfo{person}{David Nadeau} {and} \bibinfo{person}{Satoshi
+  Sekine}.} \bibinfo{year}{2007}\natexlab{}.
+\newblock \showarticletitle{A survey of named entity recognition and
+  classification}.
+\newblock \bibinfo{journal}{\emph{Lingvisticae Investigationes}}
+  \bibinfo{volume}{30}, \bibinfo{number}{1} (\bibinfo{year}{2007}),
+  \bibinfo{pages}{3--26}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Nair, Raul, Khanduja, Bahirwani, Shao,
+  Sellamanickam, Keerthi, Herbert, and Dhulipalla}{Nair et~al\mbox{.}}{2015}]%
+        {nair2015learning}
+\bibfield{author}{\bibinfo{person}{Vinod Nair}, \bibinfo{person}{Ameya Raul},
+  \bibinfo{person}{Shwetabh Khanduja}, \bibinfo{person}{Vikas Bahirwani},
+  \bibinfo{person}{Qihong Shao}, \bibinfo{person}{Sundararajan Sellamanickam},
+  \bibinfo{person}{Sathiya Keerthi}, \bibinfo{person}{Steve Herbert}, {and}
+  \bibinfo{person}{Sudheer Dhulipalla}.} \bibinfo{year}{2015}\natexlab{}.
+\newblock \showarticletitle{Learning a hierarchical monitoring system for
+  detecting and diagnosing service issues}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the 21th ACM SIGKDD International
+  Conference on Knowledge Discovery and Data Mining}}.
+  \bibinfo{pages}{2029--2038}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Pantel, Lin, and Gamon}{Pantel
+  et~al\mbox{.}}{2012}]%
+        {pantel2012mining}
+\bibfield{author}{\bibinfo{person}{Patrick Pantel}, \bibinfo{person}{Thomas
+  Lin}, {and} \bibinfo{person}{Michael Gamon}.}
+  \bibinfo{year}{2012}\natexlab{}.
+\newblock \showarticletitle{Mining entity types from query logs via user intent
+  modeling}. In \bibinfo{booktitle}{\emph{Proceedings of the 50th Annual
+  Meeting of the Association for Computational Linguistics: Long Papers-Volume
+  1}}. Association for Computational Linguistics, \bibinfo{pages}{563--571}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Pa{\c{s}}ca}{Pa{\c{s}}ca}{2007}]%
+        {pacsca2007weakly}
+\bibfield{author}{\bibinfo{person}{Marius Pa{\c{s}}ca}.}
+  \bibinfo{year}{2007}\natexlab{}.
+\newblock \showarticletitle{Weakly-supervised discovery of named entities using
+  web search queries}. In \bibinfo{booktitle}{\emph{Proceedings of the
+  sixteenth ACM conference on Conference on information and knowledge
+  management}}. \bibinfo{pages}{683--690}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Paulus, Xiong, and Socher}{Paulus
+  et~al\mbox{.}}{2017}]%
+        {paulus2017deep}
+\bibfield{author}{\bibinfo{person}{Romain Paulus}, \bibinfo{person}{Caiming
+  Xiong}, {and} \bibinfo{person}{Richard Socher}.}
+  \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{A deep reinforced model for abstractive
+  summarization}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:1705.04304}}
+  (\bibinfo{year}{2017}).
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Pennington, Socher, and Manning}{Pennington
+  et~al\mbox{.}}{2014}]%
+        {pennington2014glove}
+\bibfield{author}{\bibinfo{person}{Jeffrey Pennington},
+  \bibinfo{person}{Richard Socher}, {and} \bibinfo{person}{Christopher~D
+  Manning}.} \bibinfo{year}{2014}\natexlab{}.
+\newblock \showarticletitle{Glove: Global vectors for word representation}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the 2014 conference on empirical
+  methods in natural language processing (EMNLP)}}.
+  \bibinfo{pages}{1532--1543}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Ruder, Bingel, Augenstein, and
+  S{\o}gaard}{Ruder et~al\mbox{.}}{2017}]%
+        {ruder2017learning}
+\bibfield{author}{\bibinfo{person}{Sebastian Ruder}, \bibinfo{person}{Joachim
+  Bingel}, \bibinfo{person}{Isabelle Augenstein}, {and} \bibinfo{person}{Anders
+  S{\o}gaard}.} \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{Learning what to share between loosely related
+  tasks}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:1705.08142}}
+  (\bibinfo{year}{2017}).
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Tian, Wijedasa, Lo, and Le~Goues}{Tian
+  et~al\mbox{.}}{2016}]%
+        {tian2016learning}
+\bibfield{author}{\bibinfo{person}{Yuan Tian}, \bibinfo{person}{Dinusha
+  Wijedasa}, \bibinfo{person}{David Lo}, {and} \bibinfo{person}{Claire
+  Le~Goues}.} \bibinfo{year}{2016}\natexlab{}.
+\newblock \showarticletitle{Learning to rank for bug report assignee
+  recommendation}. In \bibinfo{booktitle}{\emph{2016 IEEE 24th International
+  Conference on Program Comprehension (ICPC)}}. IEEE, \bibinfo{pages}{1--10}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Vaswani, Shazeer, Parmar, Uszkoreit, Jones,
+  Gomez, Kaiser, and Polosukhin}{Vaswani et~al\mbox{.}}{2017}]%
+        {vaswani2017attention}
+\bibfield{author}{\bibinfo{person}{Ashish Vaswani}, \bibinfo{person}{Noam
+  Shazeer}, \bibinfo{person}{Niki Parmar}, \bibinfo{person}{Jakob Uszkoreit},
+  \bibinfo{person}{Llion Jones}, \bibinfo{person}{Aidan~N Gomez},
+  \bibinfo{person}{{\L}ukasz Kaiser}, {and} \bibinfo{person}{Illia
+  Polosukhin}.} \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{Attention is all you need}. In
+  \bibinfo{booktitle}{\emph{Advances in neural information processing
+  systems}}. \bibinfo{pages}{5998--6008}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Vyas and Pantel}{Vyas and Pantel}{2009}]%
+        {vyas2009semi}
+\bibfield{author}{\bibinfo{person}{Vishnu Vyas} {and} \bibinfo{person}{Patrick
+  Pantel}.} \bibinfo{year}{2009}\natexlab{}.
+\newblock \showarticletitle{Semi-automatic entity set refinement}. In
+  \bibinfo{booktitle}{\emph{Proceedings of Human Language Technologies: The
+  2009 Annual Conference of the North American Chapter of the Association for
+  Computational Linguistics}}. \bibinfo{pages}{290--298}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Wang, Zhang, and Wang}{Wang
+  et~al\mbox{.}}{2014}]%
+        {wang2014fixercache}
+\bibfield{author}{\bibinfo{person}{Song Wang}, \bibinfo{person}{Wen Zhang},
+  {and} \bibinfo{person}{Qing Wang}.} \bibinfo{year}{2014}\natexlab{}.
+\newblock \showarticletitle{FixerCache: Unsupervised caching active developers
+  for diverse bug triage}. In \bibinfo{booktitle}{\emph{Proceedings of the 8th
+  ACM/IEEE International Symposium on Empirical Software Engineering and
+  Measurement}}. \bibinfo{pages}{1--10}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Xu, Ding, and Wang}{Xu et~al\mbox{.}}{2008}]%
+        {xu2008entity}
+\bibfield{author}{\bibinfo{person}{Yang Xu}, \bibinfo{person}{Fan Ding}, {and}
+  \bibinfo{person}{Bin Wang}.} \bibinfo{year}{2008}\natexlab{}.
+\newblock \showarticletitle{Entity-based query reformulation using wikipedia}.
+  In \bibinfo{booktitle}{\emph{Proceedings of the 17th ACM conference on
+  Information and knowledge management}}. \bibinfo{pages}{1441--1442}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Zhou, Tong, Gu, and Gall}{Zhou
+  et~al\mbox{.}}{2016}]%
+        {zhou2016combining}
+\bibfield{author}{\bibinfo{person}{Yu Zhou}, \bibinfo{person}{Yanxiang Tong},
+  \bibinfo{person}{Ruihang Gu}, {and} \bibinfo{person}{Harald Gall}.}
+  \bibinfo{year}{2016}\natexlab{}.
+\newblock \showarticletitle{Combining text mining and data mining for bug
+  report classification}.
+\newblock \bibinfo{journal}{\emph{Journal of Software: Evolution and Process}}
+  \bibinfo{volume}{28}, \bibinfo{number}{3} (\bibinfo{year}{2016}),
+  \bibinfo{pages}{150--176}.
+\newblock
+
+
+\end{thebibliography}

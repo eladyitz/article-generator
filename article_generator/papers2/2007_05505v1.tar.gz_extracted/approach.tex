@@ -1,0 +1,62 @@
+\section{Our approach}
+Next, we describe our approach in implementing the \softner{} framework in detail. As shown in Figure \ref{fig:overview}, we start with the data cleaning process, followed by unsupervised data labeling. Then we describe the label propagation process and the architecture of the deep learning model.
+
+\subsection{Data Cleaning}
+Service incident descriptions and summaries are created by various sources such as external customers, feature engineers and even automated monitoring systems. The information could be in various forms, like textual statements, conversations, stack traces, shell scripts, images,  etc., all of which make the information unstructured and hard to interpret. Yet, these descriptions are a goldmine of information, in the form of identifiable entities, amidst other less useful information. Here, we describe the different approaches taken to clean the data before extracting information. First, we prune tables in the incident description that have more than 2 columns and get rid of HTML tags using regexes and HTML parsers. In this process, we also segment the information into sentences using newline characters. Next, we process individual sentences by cleaning up extra spaces and tokenize them into words. Our tokenization technique is able to handle camel-case tokens and URLs as well.
+
+\begin{table*}[!ht]
+\small
+\caption{Examples of entities extracted by \softner{}}
+\vspace{-6pt}
+\label{entity-examples}
+%\begin{tabular*}{\textwidth}{p{0.2\textwidth}p{0.2\textwidth}p{0.6\textwidth}}
+\begin{tabular}{lll}
+\toprule
+\textbf{Entity Name} & \textbf{Data Type} & \textbf{Example} \\
+\midrule
+Problem Type & Alphabetical & VNet Failure \\[-1pt]
+Exception Message & Alphabetical & The vpn gateway deployment operation failed due to an intermittent error \\[-1pt]
+Failed Operation Name & Alphabetical & Create and Mount Volume \\[-1pt]
+Resource Id & URI & /resource/2aa3abc0-7986-1abc-a98b-443fd7245e6f/resourcegroups/cs-net/providers/network/frontdoor/ \\[-1pt]
+Tenant Id & GUID & 4536dcd6-e2e1-3465-a22b-d25f62456233 \\[-1pt]
+Vnet Id & GUID & 45ea1234-123b-7969-adaf-e0255045569e \\[-1pt]
+Link With Details & URI & https://supportcenter.cloudx.com/caseoverview?srid=112\\[-1pt]
+Device Name & Other & sab01-98cba-1d \\[-1pt]
+Source IP & IP Address & 198.168.0.1 \\[-1pt]
+Status Code & Numeric & 500 \\[-1pt]
+Location & AlphaNumeric & eastus2\\[-1pt]
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\subsection{Unsupervised Data Labelling}
+For a lot of tasks in data mining like sentiment classification or even NER, supervised or semi-supervised methods are generally used. However, we don't have any pre-existing labelled data set which can  be used for a supervised NER task. It would also be very expensive to generate labelled data since the entity types vary across different services. So, we have built \softner{} as a completely unsupervised framework. Please refer to Table \ref{entity-examples} for examples of entities extracted using the unsupervised approach. Here are the steps for automatically generating the labelled corpus for named-entity extraction:
+
+\textbf{Step 1 (Entity tagging)}: Since we don't have a list of entity types apriori, we first bootstrap the framework with a candidate set of entity name and value pairs. For this, we have built pattern extractors using the structural patterns commonly used in the incident descriptions: 
+\begin{itemize}
+    \item \textbf{Key-Value pairs} - This pattern is commonly used in the incident descriptions to specify various entities where the Entity Type and Value are joined by a separator such as ':'. For instance, "\textit{Status code: 401}" or "\textit{Problem type: VM not found}". Here, we split the sentence on the separator and extract the first half as the \textit{Entity Type} and the second half as the \textit{Entity Value}.
+    \item \textbf{Tables} - Tables also occur quite frequently in the incident descriptions, especially, the ones which are created by bots or monitoring services. We extract the text in the header tags '\textit{<th>}' as the \textit{Entity Types} and the values in the corresponding rows as the \textit{Entity Values}.
+\end{itemize}
+ 
+\textbf{Step 2}: Now, we have a candidate set of entity names and values. However, the candidate set is noisy since we have extracted all the text which satisfies these patterns. In the NER task, entity name corresponds to the category names (for instance, people, location, etc.). So, we filter out any candidates where the entity name contains symbols or numbers. Also, for any NER framework, it's important to have a robust set of named-entities. So, we extract n-grams (n: 1 to 3) from the entity names of the candidates and take the top 100 most frequently occurring n-grams. In this process less frequent, thus noisy candidate entity types, such as \textit{"token acquisition started"}, are pruned. Also with this n-gram analysis, a candidate entity such as [\textit{"My Subscription Id is", "6572"}] would be transformed to [\textit{"Subscription Id", "6572"}] since \textit{"Subscription Id"} is a commonly occurring bi-gram in the candidate set. 
+
+\textbf{Step 3 (Data-type tagging)}: For the refined candidate set, we next infer the data type of the entity values using in-built functions of Python such as "isnumeric" along with regexes. We leverage multi-task learning in \softner{}, where we jointly train the model to predict both the entity type and the data type. These tasks are complementary and help improve the accuracy for the individual prediction tasks. Based on discussions with the service engineers, we have defined the following data types:
+\begin{itemize}
+    \item \textbf{Basic Types}: Numeric, Boolean, Alphabetical, Alphanumeric, Non-Alphanumeric
+    \item \textbf{Complex Types}: GUID, URI, IP Address
+    \item \textbf{Other}
+\end{itemize}
+To infer the data type, we compute it for each instance of a named entity. Then, conflicts are resolved by taking the most frequent type. For instance, if "VM IP" entity is most commonly specified as an IP Address but sometimes is specified as a boolean, due to noise or dummy values, we infer it's data type as an IP Address.
+
+\subsection{Label Propagation}
+With the unsupervised tagging, we have bootstrapped the training data using the pattern extraction. While this allows us to generate a seed dataset, the recall would suffer since the entities could occur inline within the incident descriptions without the key-value or tabular patterns. In the absence of ground truth or labeled data, it's a non-trivial problem to solve. In \softner{} we use the unsupervised techniques to label the incident descriptions which are then used to train a deep learning based model. So, to avoid over-fitting the model on the specific patterns, we would want to generalize or diversify the labels.
+
+We use the process of label propagation to solve this challenge. We use the entity values extracted in the bootstrapping process and propagate their types to the entire corpus. For instance, if the IP Address "127.0.0.1" was extracted as a "Source IP" entity, we would tag all un-tagged occurrences of "127.0.0.1" in the corpus as "Source IP". As we can imagine, there are certain edge cases that need to be handled. For instance, we cannot use this technique for entities with Boolean data type. It would also not work for all multi token entities, particularly, the ones which are descriptive. Lastly, it's possible that different occurrences of a particular value were tagged as different entities during bootstrapping. For instance, "127.0.0.1" can be "Source IP" in one incident while "Destination IP" in another incident. We resolve conflicts during label propagation based on popularity, i.e., the value is tagged with the entity type which occurs more frequently across the corpus.
+
+\input{multi_task_model}
+
+\subsection{Implementation}
+
+We implement \softner{} and all the machine learning models using Python 3.7.5, with Keras-2.2.4 and the tensorflow-1.15.0 backend. The hyper-parameters for the deep learning models are set as follows: word embedding size is set to 100, hidden LSTM layer size is set to 200 cells, and, maximum length of a sequence is limited to 300. These hyper-parameters were re-used among all models. The embedding layer uses pre-trained weights from glove.6B.100d, downloaded from the official stanford-nlp website\footnote{http://nlp.stanford.edu/data/glove.6B.zip}. Our models are trained on an Ubuntu 16.04 LTS machine, with 24-core Intel Xeon E5-2690 v3 CPU (2.60GHz), 112 GB memory and 64-bit operating system. The machine also has a Nvidia Tesla P100 GPU with 16 GB RAM.
+
+We have also deployed \softner{} as a REST API developed using the Python Flask web app framework. The REST API offers a POST endpoint which takes the incident description as input and returns the extracted entities in JSON format. We have deployed it on the cloud platform provided by \CompanyX{} which allows us to automatically scale the service based on the variation in request volume. This enables the service to be cost efficient since majority of the incidents are created during the day. We have also enabled application monitoring which alerts us in case the availability or the latency regresses.
