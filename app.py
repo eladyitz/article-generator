@@ -4,10 +4,11 @@ import os
 from IPython.display import display
 from article_generator.data.db_details import DbName, DataActions, get_components_list, ArxivDbQuery
 from article_generator.data.data_extractor import get_data_from_db
+from article_generator.data.data_coverter import DataConverter
 
 
 papers_folder = "papers"
-max_results = 1000
+max_results = 50
 years_ago = 3
 from_date = datetime.datetime.now() - datetime.timedelta(days=years_ago*365)
 
@@ -28,5 +29,11 @@ print("#########################################################################
 
 df.to_excel(os.path.join(papers_folder, "articles_data.xlsx"))
 
-# This is section 2
-# TODO: Add statistics here
+dataConverter = DataConverter(os.path.join(papers_folder, "articles_data.xlsx"))
+print(dataConverter.getTextToColorDictionary())
+print(len(dataConverter.getTextToColorDictionary()))
+print(dataConverter.getColorToTextDictionary())
+print(len(dataConverter.getColorToTextDictionary()))
+dataConverter.convertTextsToColorImages()
+
+dataConverter.convertColorImageToText(os.path.join(papers_folder, "2007_15543v1.tar.gz.jpg"), os.path.join(papers_folder, "test.tex"))

@@ -1,15 +1,18 @@
+import concurrent.futures
+import datetime
+import os
+import re
 import shutil
 import tarfile
 from urllib.request import urlretrieve
 
 import arxiv
-import concurrent.futures
-import os
-import re
-import datetime
 from time import mktime
-from article_generator.data.db_details import DbName, DataActions, ArxivDbQuery
+
+from alive_progress import alive_bar
+
 from article_generator.data.data_parser import consolidate_papers
+from article_generator.data.db_details import DbName, DataActions, ArxivDbQuery
 
 
 def get_data_from_db(db_name, queries, data_action, folder):
@@ -39,16 +42,18 @@ def get_data_from_db(db_name, queries, data_action, folder):
 def _get_meta_data(queries):
     queries_results = set()
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=len(queries)) as query_puller:
-        future_to_query = {query_puller.submit(_query, query): query for query in queries}
+    with alive_bar(len(queries)) as bar:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=len(queries)) as query_puller:
+            future_to_query = {query_puller.submit(_query, query): query for query in queries}
 
-        for future_query_result in concurrent.futures.as_completed(future_to_query):
-            query_details = future_to_query[future_query_result]
-            try:
-                query_data = future_query_result.result()
-                queries_results.update(query_data)
-            except Exception as exc:
-                print('query {} returned exception {}'.format(query_details, exc))
+            for future_query_result in concurrent.futures.as_completed(future_to_query):
+                query_details = future_to_query[future_query_result]
+                try:
+                    query_data = future_query_result.result()
+                    queries_results.update(query_data)
+                except Exception as exc:
+                    print('query {} returned exception {}'.format(query_details, exc))
+                bar()
 
         return queries_results
 
@@ -84,23 +89,25 @@ def _download_papers(papers_metadata, path):
     print("####################### Download Articles ###################################")
     print()
     papers_counter = 0
-    with concurrent.futures.ThreadPoolExecutor() as paper_downloader:
-        future_to_paper = {
-            paper_downloader.submit(_download_paper, paper, path): paper for paper in papers_metadata
-        }
+    with alive_bar(len(papers_metadata)) as bar:
+        with concurrent.futures.ThreadPoolExecutor() as paper_downloader:
+            future_to_paper = {
+                paper_downloader.submit(_download_paper, paper, path): paper for paper in papers_metadata
+            }
 
-        for future_paper_result in concurrent.futures.as_completed(future_to_paper):
-            paper_metadata = future_to_paper[future_paper_result]
-            try:
-                download_details = future_paper_result.result()
-                paper_metadata['paper_prefix_path'] = path
-                paper_metadata['paper_file_name'] = download_details["file_name"]
-                paper_metadata['paper_full_path'] = download_details["file_path"]
-                papers_metadata.add(paper_metadata)
-                papers_counter += 1
-            except Exception as exc:
-                print("Cant download {} because {}".format(download_details["url"], exc))
-                paper_metadata['for_deletion'] = True
+            for future_paper_result in concurrent.futures.as_completed(future_to_paper):
+                paper_metadata = future_to_paper[future_paper_result]
+                try:
+                    download_details = future_paper_result.result()
+                    paper_metadata['paper_prefix_path'] = path
+                    paper_metadata['paper_file_name'] = download_details["file_name"]
+                    paper_metadata['paper_full_path'] = download_details["file_path"]
+                    papers_metadata.add(paper_metadata)
+                    papers_counter += 1
+                except Exception as exc:
+                    print("Cant download {} because {}".format(download_details["url"], exc))
+                    paper_metadata['for_deletion'] = True
+                bar()
 
         print("Papers downloaded {}".format(papers_counter))
         print()
@@ -154,7 +161,8 @@ def _create_folder_for_sorting(paper):
     if not paper["journal_reference"]:
         folder_name = "not_peer_reviewed"
     else:
-        folder_name = re.sub("[^0-9a-zA-Z]+", "_", paper["journal_reference"])
+        folder_name = "peer_reviewed"
+        # folder_name = re.sub("[^0-9a-zA-Z]+", "_", paper["journal_reference"])
 
     folder_path = os.path.join(paper["paper_prefix_path"], folder_name)
     paper["paper_prefix_path"] = folder_path
@@ -169,20 +177,22 @@ def _add_text_to_metadata(papers_metadata):
     papers_consolidated_counter = 0
     papers_corrupted = 0
     papers_cant_be_consolidated = 0
-    for paper in papers_metadata:
-        if _untar_paper_zip(paper):
-            _create_folder_for_sorting(paper)
-            consolidated_paper = consolidate_papers(paper)
-            if consolidated_paper:
-                paper["paper_text"] = consolidated_paper
-                paper['for_deletion'] = False
-                papers_consolidated_counter += 1
+    with alive_bar(len(papers_metadata)) as bar:
+        for paper in papers_metadata:
+            if _untar_paper_zip(paper):
+                _create_folder_for_sorting(paper)
+                consolidated_paper = consolidate_papers(paper)
+                if consolidated_paper:
+                    paper["paper_text"] = consolidated_paper
+                    paper['for_deletion'] = False
+                    papers_consolidated_counter += 1
+                else:
+                    paper['for_deletion'] = True
+                    papers_cant_be_consolidated += 1
             else:
                 paper['for_deletion'] = True
-                papers_cant_be_consolidated += 1
-        else:
-            paper['for_deletion'] = True
-            papers_corrupted += 1
+                papers_corrupted += 1
+            bar()
 
     print("Papers consolidated {}".format(papers_consolidated_counter))
     print("Papers zip corrupted {}".format(papers_corrupted))

@@ -32,7 +32,7 @@ class ArxivDbQuery:
         self.query = query
         self.from_date = from_date
         if to_date is None:
-            self.to_date = datetime.now()
+            self.to_date = datetime.datetime.now()
         else:
             self.to_date = to_date
         self.id_list = id_list

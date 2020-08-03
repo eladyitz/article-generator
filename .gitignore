@@ -1,6 +1,6 @@
 # IDE
 .idea
-
+/article_generator/papers
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
